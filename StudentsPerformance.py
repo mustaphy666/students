@@ -5,32 +5,30 @@ import streamlit as st
 import pickle
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-st.header('predict the writing score')
-st.sidebar.header('user inputs')
+st.title('Writing score app prediction')
+st.write('**This app predict the writing score by tuning the user inputs parameters**')
+st.subheader('User inputs')
 def user():
-    gender=st.sidebar.selectbox('gender',('male','female'))
-    race=st.sidebar.selectbox('race',('group A', 'group B', 'group C', 'group D', 'group E'))
-    education=st.sidebar.selectbox('parent education',("bachelor's degree", 'some college', "master's degree",
+    gender=st.selectbox('Gender',('male','female'))
+    race=st.selectbox('Race',('Black', 'Asian', 'European', 'indigenous people', 'pacific islander'))
+    education=st.selectbox('Parent education',("bachelor's degree", 'some college', "master's degree",
        "associate's degree", 'high school', 'some high school'))
-    lunch=st.sidebar.selectbox('lunch',('standard', 'free/reduced'))
-    test=st.sidebar.selectbox('test preparation',('none','completed'))
-    math_score=st.sidebar.slider('math_score',0,100)
-    reading_score=st.sidebar.slider('reading_score',17,100)
+    lunch=st.selectbox('Lunch',('standard', 'free/reduced'))
+    test=st.selectbox('Test preparation',('none','completed'))
+    math_score=st.slider('Math score',0,100)
+    reading_score=st.slider('Reading score',17,100)
     dat={
-     'gender':gender,'race/ethnicity':race,'parental level of education':education,'lunch':lunch,'test preparation course':test,
+     'gender':gender,'race':race,'parental level of education':education,'lunch':lunch,'test preparation course':test,
      'math score':math_score,'reading score':reading_score}
     features=pd.DataFrame(dat,index=[0])
     return features
-    #ad=pickle.load(open('student.pkl','rb'))
-    #=load.predict(dat.values().reshape(1,-1))
-    #=pd.DataFrame(da,columns=['writing score'])   
-    #.write(da)
-
 df=user()
-data=pd.read_csv('C:\\Users\\Administrator\\Downloads\\students\\StudentsPerformance.csv')
-stu=data.drop(columns='writing score')
+data=pd.read_csv('StudentsPerformance.csv')
+race={'group A':'Black','group B':'Asian','group C':'European','group D':'pacific islander','group E':'indigenous people'}
+data['race']=data['race/ethnicity'].map(race)
+stu=data.drop(columns=['writing score','race/ethnicity'])
 con=pd.concat([df,stu],axis=0)
-encode=['gender', 'race/ethnicity', 'parental level of education', 'lunch',
+encode=['gender', 'race', 'parental level of education', 'lunch',
 'test preparation course']
 for c in encode:
      dummy=pd.get_dummies(con[c],prefix=c)
