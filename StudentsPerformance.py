@@ -24,9 +24,13 @@ def user():
     return features
 df=user()
 data=pd.read_csv('StudentsPerformance.csv')
+<<<<<<< HEAD
 race={'group A':'Black','group B':'Asian','group C':'European','group D':'pacific islander','group E':'indigenous people'}
 data['race']=data['race/ethnicity'].map(race)
 stu=data.drop(columns=['writing score','race/ethnicity'])
+=======
+stu=data.drop(columns='writing score')
+>>>>>>> 7cc045838cd95dfa799806cde33c2b722fc0cff7
 con=pd.concat([df,stu],axis=0)
 encode=['gender', 'race', 'parental level of education', 'lunch',
 'test preparation course']
@@ -35,7 +39,7 @@ for c in encode:
      con=pd.concat([con,dummy],axis=1)
      del con[c]
 con=con[:1]
-load=pickle.load(open('C:\\Users\\Administrator\\Downloads\\students\\student.pkl','rb'))
+load=pickle.load(open('student.pkl','rb'))
 pred=load.predict(con)
 if st.button('predict'):
     st.write('writing score')
