@@ -24,13 +24,9 @@ def user():
     return features
 df=user()
 data=pd.read_csv('StudentsPerformance.csv')
-<<<<<<< HEAD
 race={'group A':'Black','group B':'Asian','group C':'European','group D':'pacific islander','group E':'indigenous people'}
 data['race']=data['race/ethnicity'].map(race)
 stu=data.drop(columns=['writing score','race/ethnicity'])
-=======
-stu=data.drop(columns='writing score')
->>>>>>> 7cc045838cd95dfa799806cde33c2b722fc0cff7
 con=pd.concat([df,stu],axis=0)
 encode=['gender', 'race', 'parental level of education', 'lunch',
 'test preparation course']
