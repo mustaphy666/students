@@ -27,7 +27,7 @@ def user():
     #.write(da)
 
 df=user()
-data=pd.read_csv('C:\\Users\\Administrator\\Downloads\\students\\StudentsPerformance.csv')
+data=pd.read_csv('StudentsPerformance.csv')
 stu=data.drop(columns='writing score')
 con=pd.concat([df,stu],axis=0)
 encode=['gender', 'race/ethnicity', 'parental level of education', 'lunch',
@@ -37,7 +37,7 @@ for c in encode:
      con=pd.concat([con,dummy],axis=1)
      del con[c]
 con=con[:1]
-load=pickle.load(open('C:\\Users\\Administrator\\Downloads\\students\\student.pkl','rb'))
+load=pickle.load(open('student.pkl','rb'))
 pred=load.predict(con)
 if st.button('predict'):
     st.write('writing score')
